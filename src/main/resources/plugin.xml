@@ -52,6 +52,18 @@
       </action>
 
       <action
+        id="it.unibz.inf.ontouml.vp.actions.AbstractionAction"
+        actionType="generalAction"
+        description="Abstract active diagram to the higher level."
+        style="normal"
+        tooltip="Abstract active diagram to the higher level."
+        icon="icons/toolbar/magnifying-glass-with-minus-sign-orange.png"
+        label="Abstract Diagram"
+        menuPath="it.unibz.inf.ontouml.vp.actionset1.toolbar1/it.unibz.inf.ontouml.vp.actionset1.menu1/#">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractionController"/>
+      </action>
+
+      <action
         id="it.unibz.inf.ontouml.vp.actions.JsonImportAction"
         actionType="generalAction"
         description="Imports a project from a JSON file formatted according to the OntoUML JSON Schema."

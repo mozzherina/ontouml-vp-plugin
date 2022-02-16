@@ -1,12 +1,8 @@
 package it.unibz.inf.ontouml.vp.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.unibz.inf.ontouml.vp.model.Configurations;
-import it.unibz.inf.ontouml.vp.model.GufoTransformationServiceResult;
-import it.unibz.inf.ontouml.vp.model.ModularizationServiceResult;
-import it.unibz.inf.ontouml.vp.model.ProjectConfigurations;
-import it.unibz.inf.ontouml.vp.model.ServiceResult;
-import it.unibz.inf.ontouml.vp.model.VerificationServiceResult;
+import it.unibz.inf.ontouml.vp.model.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,6 +24,7 @@ public class OntoUMLServerAccessController {
   private static final String TRANSFORM_GUFO_SERVICE_ENDPOINT = "/v1/transform/gufo";
   private static final String VERIFICATION_SERVICE_ENDPOINT = "/v1/verify";
   private static final String MODULARIZATION_SERVICE_ENDPOINT = "/v1/modularize";
+  private static final String ABSTRACTION_SERVICE_ENDPOINT = "/v1/abstract";
   private static final String USER_MESSAGE_BAD_REQUEST =
       "There was a internal plugin error and the service could not be completed.";
   private static final String USER_MESSAGE_REQUEST_WITH_SYNTACTICAL_ERRORS =
@@ -51,6 +48,13 @@ public class OntoUMLServerAccessController {
     return config.isCustomServerEnabled()
         ? config.getServerURL() + MODULARIZATION_SERVICE_ENDPOINT
         : ProjectConfigurations.DEFAULT_SERVER_URL + MODULARIZATION_SERVICE_ENDPOINT;
+  }
+
+  private static String getAbstractionRequestUrl() {
+    final ProjectConfigurations config = Configurations.getInstance().getProjectConfigurations();
+    return config.isCustomServerEnabled()
+            ? config.getServerURL() + ABSTRACTION_SERVICE_ENDPOINT
+            : ProjectConfigurations.DEFAULT_SERVER_URL + ABSTRACTION_SERVICE_ENDPOINT;
   }
 
   private static String getVerificationRequestUrl() {
@@ -94,6 +98,15 @@ public class OntoUMLServerAccessController {
     final HttpURLConnection connection = request(url, body);
 
     return parseResponse(connection, ModularizationServiceResult.class);
+  }
+
+  public static AbstractionServiceResult requestProjectAbstraction(String project)
+          throws IOException {
+    final String body = getServiceRequestBody(project);
+    final String url = getAbstractionRequestUrl();
+    final HttpURLConnection connection = request(url, body);
+
+    return parseResponse(connection, AbstractionServiceResult.class);
   }
 
   public static VerificationServiceResult requestModelVerification(String project)
