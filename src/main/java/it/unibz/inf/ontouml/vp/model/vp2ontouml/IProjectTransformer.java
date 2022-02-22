@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 public class IProjectTransformer {
 
-  public static Project transform(IProject sourceProject) {
+  public static Project transform(IProject sourceProject, String activeDiagram) {
     Project targetProject = new Project();
     Trace.getInstance().put(sourceProject.getId(), sourceProject, targetProject);
 
@@ -28,6 +28,11 @@ public class IProjectTransformer {
 
     String id = sourceProject.getId();
     targetProject.setId(id);
+
+    // save active diagram id
+    if (activeDiagram != null) {
+      targetProject.addDescription("Active diagram: " + activeDiagram);
+    }
 
     Package root = targetProject.createModel(id + "_root", name);
 
@@ -52,6 +57,10 @@ public class IProjectTransformer {
     targetProject.setDiagrams(diagrams);
 
     return targetProject;
+  }
+
+  public static Project transform(IProject sourceProject){
+    return transform(sourceProject, null);
   }
 
   private static List<Diagram> transformDiagrams(IProject source, Package root) {
