@@ -100,9 +100,9 @@ public class OntoUMLServerAccessController {
     return parseResponse(connection, ModularizationServiceResult.class);
   }
 
-  public static AbstractionServiceResult requestProjectAbstraction(String project)
+  public static AbstractionServiceResult requestProjectAbstraction(String project, String options)
           throws IOException {
-    final String body = getServiceRequestBody(project);
+    final String body = getServiceRequestBody(project, options);
     final String url = getAbstractionRequestUrl();
     final HttpURLConnection connection = request(url, body);
 

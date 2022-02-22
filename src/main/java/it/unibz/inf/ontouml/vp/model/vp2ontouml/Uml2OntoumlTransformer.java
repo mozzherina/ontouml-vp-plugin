@@ -13,10 +13,14 @@ public class Uml2OntoumlTransformer {
 
   public static String transformAndSerialize() throws IOException {
     final IProject source = ApplicationManager.instance().getProjectManager().getProject();
-    final IDiagramUIModel activeDiagram = ApplicationManager.instance().getDiagramManager().getActiveDiagram();
 
-    Project target = IProjectTransformer.transform(source, activeDiagram.getId());
+    Project target = IProjectTransformer.transform(source);
     ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     return mapper.writeValueAsString(target);
+  }
+
+  public static String getActiveDiagramId() {
+    final IDiagramUIModel activeDiagram = ApplicationManager.instance().getDiagramManager().getActiveDiagram();
+    return activeDiagram.getId();
   }
 }

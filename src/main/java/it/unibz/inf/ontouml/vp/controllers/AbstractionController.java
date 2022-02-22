@@ -3,6 +3,7 @@ package it.unibz.inf.ontouml.vp.controllers;
 import com.vp.plugin.action.VPAction;
 import com.vp.plugin.action.VPActionController;
 import it.unibz.inf.ontouml.vp.model.AbstractionServiceResult;
+import it.unibz.inf.ontouml.vp.model.AbstractionOptions;
 import it.unibz.inf.ontouml.vp.model.ontouml.Project;
 import it.unibz.inf.ontouml.vp.model.ontouml2vp.IProjectLoader;
 import it.unibz.inf.ontouml.vp.model.vp2ontouml.Uml2OntoumlTransformer;
@@ -28,12 +29,15 @@ public class AbstractionController implements VPActionController {
       System.out.println("Starting abstraction service...");
       System.out.println("Serializing project...");
       final String serializedProject = Uml2OntoumlTransformer.transformAndSerialize();
+      final String activeDiagramId = Uml2OntoumlTransformer.getActiveDiagramId();
+      // TODO: instead of activeDiagramId should be a class with all options AbstractDialogController
+      final String options = new AbstractionOptions(activeDiagramId).toJson();
       System.out.println(serializedProject);
       System.out.println("Project serialized!");
 
       System.out.println("Requesting diagrams from the abstraction service...");
       final AbstractionServiceResult serviceResult =
-          OntoUMLServerAccessController.requestProjectAbstraction(serializedProject);
+          OntoUMLServerAccessController.requestProjectAbstraction(serializedProject, options);
       System.out.println("Request answered by abstraction service!");
 
       System.out.println(serviceResult.getIssues());
