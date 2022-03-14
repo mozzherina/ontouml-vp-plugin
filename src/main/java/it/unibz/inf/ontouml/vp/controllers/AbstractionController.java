@@ -15,6 +15,12 @@ import java.util.List;
 
 public class AbstractionController implements VPActionController {
 
+  private String elementId;
+
+  public void setElementId(String elementId) {
+    this.elementId = elementId;
+  }
+
   @Override
   public void performAction(VPAction vpAction) {
     final SimpleServiceWorker worker = new SimpleServiceWorker(this::task);
@@ -30,8 +36,7 @@ public class AbstractionController implements VPActionController {
       System.out.println("Serializing project...");
       final String serializedProject = Uml2OntoumlTransformer.transformAndSerialize();
       final String activeDiagramId = Uml2OntoumlTransformer.getActiveDiagramId();
-      // TODO: instead of activeDiagramId should be a class with all options AbstractDialogController
-      final String options = new AbstractionOptions(activeDiagramId).toJson();
+      final String options = new AbstractionOptions(activeDiagramId, this.elementId).toJson();
       System.out.println(serializedProject);
       System.out.println("Project serialized!");
 
@@ -46,7 +51,7 @@ public class AbstractionController implements VPActionController {
       System.out.println("Processing abstraction service response...");
       Project modularizedProject = serviceResult.getResult();
       if (!context.isCancelled() && modularizedProject != null) {
-        IProjectLoader.load(modularizedProject, false, true);
+        IProjectLoader.load(modularizedProject, false, false);
         ViewManagerUtils.log(serviceResult.getMessage());
       }
       System.out.println("Abstraction service response processed!");

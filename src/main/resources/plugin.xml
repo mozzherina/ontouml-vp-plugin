@@ -1,6 +1,6 @@
 <plugin
   id="it.unibz.inf.ontouml.vp"
-  description="OntoUML Plugin Visual Paradigm v0.5.3"
+  description="OntoUML Plugin Visual Paradigm v0.5.4"
   provider="University of Bolzano"
   class="it.unibz.inf.ontouml.vp.OntoUMLPlugin">
 
@@ -188,6 +188,20 @@
       -->
 
     </actionSet>
+
+    <contextSensitiveActionSet id="it.unibz.inf.ontouml.vp.AbstractAction">
+      <contextTypes all="false"/>
+      <include type="Class"/>
+
+      <separator id="it.unibz.inf.ontouml.vp.AbstractAction.separator" menuPath="#"/>
+
+      <action id="it.unibz.inf.ontouml.vp.AbstractAction.abstractClass"
+              label="Abstract Class" style="normal" menuPath="#"
+              icon="icons/logo/ontouml-simple-logo-small.png">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractClassController"/>
+      </action>
+
+    </contextSensitiveActionSet>
 
     <contextSensitiveActionSet id="it.unibz.inf.ontouml.vp.AssociationActions">
       <contextTypes all="false"/>
