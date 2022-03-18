@@ -38,8 +38,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <visualparadigm.app.dir>
+            /Applications/Visual Paradigm.app/Contents/Resources/app
         </visualparadigm.app.dir>
         <visualparadigm.plugin.dir>
+            /Users/elenaromanenko/Library/Application Support/VisualParadigm/plugins
         </visualparadigm.plugin.dir>
     </properties>
 

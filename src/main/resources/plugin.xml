@@ -52,15 +52,39 @@
       </action>
 
       <action
-        id="it.unibz.inf.ontouml.vp.actions.AbstractionAction"
+        id="it.unibz.inf.ontouml.vp.actions.AbstractionParthoodAction"
         actionType="generalAction"
-        description="Abstract active diagram to the higher level."
+        description="Abstract parthood relations in the diagram."
         style="normal"
-        tooltip="Abstract active diagram to the higher level."
+        tooltip="Abstract parthood relations in the diagram."
         icon="icons/toolbar/magnifying-glass-with-minus-sign-orange.png"
-        label="Abstract Diagram"
+        label="Abstract Parthood"
         menuPath="it.unibz.inf.ontouml.vp.actionset1.toolbar1/it.unibz.inf.ontouml.vp.actionset1.menu1/#">
-        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractionController"/>
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractParthoodController"/>
+      </action>
+
+      <action
+        id="it.unibz.inf.ontouml.vp.actions.AbstractionHierarchyAction"
+        actionType="generalAction"
+        description="Abstract hierarchies in the active diagram."
+        style="normal"
+        tooltip="Abstract hierarchies in the active diagram."
+        icon="icons/toolbar/magnifying-glass-with-minus-sign-orange.png"
+        label="Abstract Hierarchy"
+        menuPath="it.unibz.inf.ontouml.vp.actionset1.toolbar1/it.unibz.inf.ontouml.vp.actionset1.menu1/#">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractHierarchyController"/>
+      </action>
+
+      <action
+        id="it.unibz.inf.ontouml.vp.actions.AbstractionAspectsAction"
+        actionType="generalAction"
+        description="Abstract aspects in the diagram."
+        style="normal"
+        tooltip="Abstract aspects in the diagram."
+        icon="icons/toolbar/magnifying-glass-with-minus-sign-orange.png"
+        label="Abstract Aspects"
+        menuPath="it.unibz.inf.ontouml.vp.actionset1.toolbar1/it.unibz.inf.ontouml.vp.actionset1.menu1/#">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractAspectsController"/>
       </action>
 
       <action

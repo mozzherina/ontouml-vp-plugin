@@ -1,5 +1,6 @@
 package it.unibz.inf.ontouml.vp.controllers;
 
+import com.vp.plugin.ApplicationManager;
 import com.vp.plugin.action.VPAction;
 import com.vp.plugin.action.VPActionController;
 import it.unibz.inf.ontouml.vp.model.AbstractionServiceResult;
@@ -16,9 +17,14 @@ import java.util.List;
 public class AbstractionController implements VPActionController {
 
   private String elementId;
+  private String abstractionRule;
 
   public void setElementId(String elementId) {
     this.elementId = elementId;
+  }
+
+  public void setAbstractionRule(String abstractionRule) {
+    this.abstractionRule = abstractionRule;
   }
 
   @Override
@@ -35,8 +41,13 @@ public class AbstractionController implements VPActionController {
       System.out.println("Starting abstraction service...");
       System.out.println("Serializing project...");
       final String serializedProject = Uml2OntoumlTransformer.transformAndSerialize();
-      final String activeDiagramId = Uml2OntoumlTransformer.getActiveDiagramId();
-      final String options = new AbstractionOptions(activeDiagramId, this.elementId).toJson();
+      //final String activeDiagramId = Uml2OntoumlTransformer.getActiveDiagramId();
+      final String activeDiagramId = ApplicationManager.instance().getDiagramManager().getActiveDiagram().getId();
+      final String options = new AbstractionOptions(
+              activeDiagramId,
+              this.elementId,
+              this.abstractionRule
+      ).toJson();
       System.out.println(serializedProject);
       System.out.println("Project serialized!");
 

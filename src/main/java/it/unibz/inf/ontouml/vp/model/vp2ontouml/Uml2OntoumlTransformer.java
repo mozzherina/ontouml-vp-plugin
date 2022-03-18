@@ -19,8 +19,4 @@ public class Uml2OntoumlTransformer {
     return mapper.writeValueAsString(target);
   }
 
-  public static String getActiveDiagramId() {
-    final IDiagramUIModel activeDiagram = ApplicationManager.instance().getDiagramManager().getActiveDiagram();
-    return activeDiagram.getId();
-  }
 }
