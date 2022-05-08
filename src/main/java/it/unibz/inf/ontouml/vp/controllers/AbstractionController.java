@@ -62,7 +62,7 @@ public class AbstractionController implements VPActionController {
       System.out.println("Processing abstraction service response...");
       Project modularizedProject = serviceResult.getResult();
       if (!context.isCancelled() && modularizedProject != null) {
-        IProjectLoader.load(modularizedProject, true, false);
+        IProjectLoader.load(modularizedProject, false, false);
         ViewManagerUtils.log(serviceResult.getMessage());
       }
       System.out.println("Abstraction service response processed!");
