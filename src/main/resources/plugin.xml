@@ -220,7 +220,7 @@
       <separator id="it.unibz.inf.ontouml.vp.AbstractAction.separator" menuPath="#"/>
 
       <action id="it.unibz.inf.ontouml.vp.AbstractAction.abstractClass"
-              label="Abstract Class" style="normal" menuPath="#"
+              label="Fold Class" style="normal" menuPath="#"
               icon="icons/logo/ontouml-simple-logo-small.png">
         <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractClassController"/>
       </action>
