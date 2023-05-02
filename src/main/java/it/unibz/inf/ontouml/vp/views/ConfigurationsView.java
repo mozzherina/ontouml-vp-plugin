@@ -16,6 +16,7 @@ import javax.swing.event.ChangeListener;
  * </code>.
  *
  * @author Claudenir Fonseca
+ * @author Elena Romanenko
  */
 public class ConfigurationsView extends JPanel {
 
@@ -23,6 +24,9 @@ public class ConfigurationsView extends JPanel {
 
   private JCheckBox _chckbxEnableCustomServer;
   private JTextField _txtServerAddress;
+
+  private JCheckBox _chckbxEnableExpoCustomServer;
+  private JTextField _txtExpoServerAddress;
 
   private JCheckBox _chckbxEnableAutoColoring;
   private JCheckBox _chckbxEnableSmartModelling;
@@ -36,10 +40,10 @@ public class ConfigurationsView extends JPanel {
 
   /** ConfigurationsView constructor. */
   public ConfigurationsView(ProjectConfigurations configurations) {
-    setSize(new Dimension(670, 180));
+    setSize(new Dimension(670, 206));
     GridBagLayout gridBagLayout = new GridBagLayout();
     gridBagLayout.columnWidths = new int[] {670};
-    gridBagLayout.rowHeights = new int[] {26, 82, 25, 0};
+    gridBagLayout.rowHeights = new int[] {26, 105, 25, 0};
     gridBagLayout.columnWeights = new double[] {1.0};
     gridBagLayout.rowWeights = new double[] {0.0, 0.0, 1.0, Double.MIN_VALUE};
     setLayout(gridBagLayout);
@@ -61,7 +65,7 @@ public class ConfigurationsView extends JPanel {
     gbl__ontoUMLServerPanel.rowWeights = new double[] {0.0, Double.MIN_VALUE};
     _ontoUMLServerPanel.setLayout(gbl__ontoUMLServerPanel);
 
-    _chckbxEnableCustomServer = new JCheckBox("Use custom OntoUML Server instance.");
+    _chckbxEnableCustomServer = new JCheckBox("Use custom OntoUML Server instance:");
     _chckbxEnableCustomServer.addChangeListener(
         new ChangeListener() {
           public void stateChanged(ChangeEvent e) {
@@ -84,6 +88,39 @@ public class ConfigurationsView extends JPanel {
     _ontoUMLServerPanel.add(_txtServerAddress, gbc__txtServerAddress);
     _txtServerAddress.setText("");
     _txtServerAddress.setColumns(10);
+
+    JPanel _expoServerPanel = new JPanel();
+    _optionsPanel.add(_expoServerPanel);
+    GridBagLayout gbl__expoServerPanel = new GridBagLayout();
+    gbl__expoServerPanel.columnWidths = new int[] {290, 370, 0};
+    gbl__expoServerPanel.rowHeights = new int[] {26, 0};
+    gbl__expoServerPanel.columnWeights = new double[] {0.0, 0.0, Double.MIN_VALUE};
+    gbl__expoServerPanel.rowWeights = new double[] {0.0, Double.MIN_VALUE};
+    _expoServerPanel.setLayout(gbl__expoServerPanel);
+
+    _chckbxEnableExpoCustomServer = new JCheckBox("Use custom ExpO Server instance:");
+    _chckbxEnableExpoCustomServer.addChangeListener(
+            new ChangeListener() {
+              public void stateChanged(ChangeEvent e) {
+                updateComponentsStatus();
+              }
+            });
+    GridBagConstraints gbc__chckbxEnableExpoCustomServer = new GridBagConstraints();
+    gbc__chckbxEnableExpoCustomServer.anchor = GridBagConstraints.WEST;
+    gbc__chckbxEnableExpoCustomServer.insets = new Insets(0, 0, 0, 5);
+    gbc__chckbxEnableExpoCustomServer.gridx = 0;
+    gbc__chckbxEnableExpoCustomServer.gridy = 0;
+    _expoServerPanel.add(_chckbxEnableExpoCustomServer, gbc__chckbxEnableExpoCustomServer);
+
+    _txtExpoServerAddress = new JTextField();
+    GridBagConstraints gbc__txtExpoServerAddress = new GridBagConstraints();
+    gbc__txtExpoServerAddress.fill = GridBagConstraints.HORIZONTAL;
+    gbc__txtExpoServerAddress.anchor = GridBagConstraints.NORTH;
+    gbc__txtExpoServerAddress.gridx = 1;
+    gbc__txtExpoServerAddress.gridy = 0;
+    _expoServerPanel.add(_txtExpoServerAddress, gbc__txtExpoServerAddress);
+    _txtExpoServerAddress.setText("");
+    _txtExpoServerAddress.setColumns(10);
 
     JPanel _exportPanel = new JPanel();
     _optionsPanel.add(_exportPanel);
@@ -197,6 +234,9 @@ public class ConfigurationsView extends JPanel {
     configurations.setCustomServerEnabled(_chckbxEnableCustomServer.isSelected());
     configurations.setServerURL(_txtServerAddress.getText());
 
+    configurations.setCustomExpoServerEnabled(_chckbxEnableExpoCustomServer.isSelected());
+    configurations.setExpoServerURL(_txtExpoServerAddress.getText());
+
     configurations.setAutomaticColoringEnabled(_chckbxEnableAutoColoring.isSelected());
     configurations.setSmartModellingEnabled(_chckbxEnableSmartModelling.isSelected());
   }
@@ -210,6 +250,9 @@ public class ConfigurationsView extends JPanel {
     _chckbxEnableCustomServer.setSelected(configurations.isCustomServerEnabled());
     _txtServerAddress.setText(configurations.getServerURL());
 
+    _chckbxEnableCustomServer.setSelected(configurations.isCustomExpoServerEnabled());
+    _txtExpoServerAddress.setText(configurations.getExpoServerURL());
+
     _chckbxEnableAutoColoring.setSelected(configurations.isAutomaticColoringEnabled());
     _chckbxEnableSmartModelling.setSelected(configurations.isSmartModellingEnabled());
   }
@@ -218,6 +261,9 @@ public class ConfigurationsView extends JPanel {
   private void resetComponentsValues() {
     _chckbxEnableCustomServer.setSelected(ProjectConfigurations.DEFAULT_IS_CUSTOM_SERVER_ENABLED);
     _txtServerAddress.setText(ProjectConfigurations.DEFAULT_SERVER_URL);
+
+    _chckbxEnableExpoCustomServer.setSelected(ProjectConfigurations.DEFAULT_IS_CUSTOM_SERVER_ENABLED);
+    _txtExpoServerAddress.setText(ProjectConfigurations.DEFAULT_EXPO_SERVER_URL);
 
     _chckbxEnableAutoColoring.setSelected(
         ProjectConfigurations.DEFAULT_IS_AUTOMATIC_COLORING_ENABLED);
@@ -229,6 +275,10 @@ public class ConfigurationsView extends JPanel {
   private void updateComponentsStatus() {
     _chckbxEnableCustomServer.setEnabled(true);
     _txtServerAddress.setEnabled(_chckbxEnableCustomServer.isSelected());
+
+    _chckbxEnableExpoCustomServer.setEnabled(true);
+    _txtExpoServerAddress.setEnabled(_chckbxEnableExpoCustomServer.isSelected());
+
     _chckbxEnableAutoColoring.setEnabled(true);
     _chckbxEnableSmartModelling.setEnabled(true);
   }
