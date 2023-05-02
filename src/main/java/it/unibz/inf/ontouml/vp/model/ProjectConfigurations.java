@@ -154,6 +154,7 @@ public class ProjectConfigurations {
 
     this.isCustomServerEnabled = ProjectConfigurations.DEFAULT_IS_CUSTOM_SERVER_ENABLED;
     this.serverURL = ProjectConfigurations.DEFAULT_SERVER_URL;
+    this.expoServerURL = ProjectConfigurations.DEFAULT_EXPO_SERVER_URL;
 
     this.isModelExportEnabled = ProjectConfigurations.DEFAULT_IS_EXPORT_ENABLED;
     this.exportFolderPath = ProjectConfigurations.DEFAULT_EXPORT_PATH;
