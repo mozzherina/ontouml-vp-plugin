@@ -3,8 +3,8 @@ package it.unibz.inf.ontouml.vp.controllers;
 import com.vp.plugin.ApplicationManager;
 import com.vp.plugin.action.VPAction;
 import com.vp.plugin.action.VPActionController;
-import it.unibz.inf.ontouml.vp.model.AbstractionServiceResult;
-import it.unibz.inf.ontouml.vp.model.AbstractionOptions;
+import it.unibz.inf.ontouml.vp.model.ExpoServiceResult;
+import it.unibz.inf.ontouml.vp.model.ExpoOptions;
 import it.unibz.inf.ontouml.vp.model.ontouml.Project;
 import it.unibz.inf.ontouml.vp.model.ontouml2vp.IProjectLoader;
 import it.unibz.inf.ontouml.vp.model.vp2ontouml.Uml2OntoumlTransformer;
@@ -14,17 +14,18 @@ import it.unibz.inf.ontouml.vp.utils.ViewManagerUtils;
 import java.io.IOException;
 import java.util.List;
 
-public class AbstractionController implements VPActionController {
+public class ExplanationController implements VPActionController {
 
-  // private String elementId;
-  private String abstractionRule;
+  private String elementId;
+  private String actionType;
 
-  // public void setElementId(String elementId) {
-    // this.elementId = elementId;
-  // }
+  public void setElementId(String elementId) {
+    this.elementId = elementId;
+  }
 
-  public void setAbstractionRule(String abstractionRule) {
-    this.abstractionRule = abstractionRule;
+  public void setActionType(String actionId) {
+    String[] originalId = actionId.split(".");
+    this.actionType = originalId[originalId.length-1];
   }
 
   @Override
@@ -38,34 +39,32 @@ public class AbstractionController implements VPActionController {
 
   private List<String> task(SimpleServiceWorker context) {
     try {
-      System.out.println("Starting abstraction service...");
+      System.out.println("Starting Expo service...");
       System.out.println("Serializing project...");
       final String serializedProject = Uml2OntoumlTransformer.transformAndSerialize();
-      // final String activeDiagramId = ApplicationManager.instance().getDiagramManager().getActiveDiagram().getId();
-      final String options = new AbstractionOptions(
-              // activeDiagramId,
-              // this.elementId,
-              this.abstractionRule
+      final String options = new ExpoOptions(
+              this.elementId,
+              this.actionType
       ).toJson();
       System.out.println(serializedProject);
       System.out.println("Project serialized!");
 
-      System.out.println("Requesting diagrams from the abstraction service...");
-      final AbstractionServiceResult serviceResult =
-          ExpoServerAccessController.requestProjectAbstraction(serializedProject, options);
+      System.out.println("Requesting results from the Expo service...");
+      final ExpoServiceResult serviceResult =
+          ExpoServerAccessController.requestProjectExplanation(serializedProject, options, this.actionType);
       System.out.println("Request answered by Expose!");
 
       System.out.println(serviceResult.getIssues());
 
       // Load project
-      System.out.println("Processing abstraction service response...");
-      Project modularizedProject = serviceResult.getResult();
-      if (!context.isCancelled() && modularizedProject != null) {
-        IProjectLoader.load(modularizedProject, false, false);
+      System.out.println("Processing Expo response...");
+      Project expoProject = serviceResult.getResult();
+      if (!context.isCancelled() && expoProject != null) {
+        IProjectLoader.load(expoProject, false, false);
         ViewManagerUtils.log(serviceResult.getMessage());
       }
-      System.out.println("Abstraction service response processed!");
-      System.out.println("Abstraction service concluded.");
+      System.out.println("Expo service response processed!");
+      System.out.println("Expo service concluded.");
 
       return List.of(serviceResult.getMessage());
     } catch (IOException e) {

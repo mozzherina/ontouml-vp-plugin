@@ -213,18 +213,35 @@
 
     </actionSet>
 
-    <contextSensitiveActionSet id="it.unibz.inf.ontouml.vp.AbstractAction">
+    <contextSensitiveActionSet id="it.unibz.inf.ontouml.vp.ExpoAction">
       <contextTypes all="false"/>
       <include type="Class"/>
 
-      <separator id="it.unibz.inf.ontouml.vp.AbstractAction.separator" menuPath="#"/>
+      <separator id="it.unibz.inf.ontouml.vp.ExpoAction.separator" menuPath="#"/>
 
-      <action id="it.unibz.inf.ontouml.vp.AbstractAction.abstractClass"
-              label="Fold Class" style="normal" menuPath="#"
+      <action id="it.unibz.inf.ontouml.vp.ExpoAction.foldClass"
+              label="Fold class" style="normal" menuPath="#"
               icon="icons/logo/ontouml-simple-logo-small.png">
-        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractClassController"/>
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.ExpoController"/>
       </action>
 
+      <action id="it.unibz.inf.ontouml.vp.ExpoAction.expandClass"
+              label="Expand class" style="normal" menuPath="#"
+              icon="icons/logo/ontouml-simple-logo-small.png">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.ExpoController"/>
+      </action>
+
+      <action id="it.unibz.inf.ontouml.vp.ExpoAction.clusterClass"
+              label="Cluster" style="normal" menuPath="#"
+              icon="icons/logo/ontouml-simple-logo-small.png">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.ExpoController"/>
+      </action>
+
+      <action id="it.unibz.inf.ontouml.vp.ExpoAction.focusClass"
+              label="Focus on class" style="normal" menuPath="#"
+              icon="icons/logo/ontouml-simple-logo-small.png">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.ExpoController"/>
+      </action>
     </contextSensitiveActionSet>
 
     <contextSensitiveActionSet id="it.unibz.inf.ontouml.vp.AssociationActions">

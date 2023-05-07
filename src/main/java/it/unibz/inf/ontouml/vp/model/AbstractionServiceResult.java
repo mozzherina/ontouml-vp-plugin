@@ -14,6 +14,10 @@ public class AbstractionServiceResult extends ServiceResult<Project> {
     super(result, issues);
   }
 
+  public AbstractionServiceResult(Project result) {
+    super(result);
+  }
+
   @Override
   public String getMessage() {
     return "The abstraction request has concluded";

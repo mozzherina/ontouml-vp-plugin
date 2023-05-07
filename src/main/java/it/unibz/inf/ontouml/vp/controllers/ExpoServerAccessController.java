@@ -13,17 +13,18 @@ import java.net.URL;
 import java.util.stream.Collectors;
 
 /**
- * Class responsible for making requests to the OntoUML Server based on standard end points and
+ * Class responsible for making requests to the Expose based on standard end points and
  * configured server URL.
  *
- * @author Claudenir Fonseca
- * @author Victor Viola
+ * @author Elena Romanenko
  */
-public class OntoUMLServerAccessController {
+public class ExpoServerAccessController {
 
-  private static final String TRANSFORM_GUFO_SERVICE_ENDPOINT = "/v1/transform/gufo";
-  private static final String VERIFICATION_SERVICE_ENDPOINT = "/v1/verify";
-  private static final String MODULARIZATION_SERVICE_ENDPOINT = "/v1/modularize";
+  private static final String ABSTRACT_SERVICE_ENDPOINT = "/abstract";
+  private static final String FOLD_SERVICE_ENDPOINT = "/fold";
+  private static final String EXPAND_SERVICE_ENDPOINT = "/expand";
+  private static final String CLUSTER_SERVICE_ENDPOINT = "/cluster";
+  private static final String FOCUS_SERVICE_ENDPOINT = "/focus";
   private static final String USER_MESSAGE_BAD_REQUEST =
       "There was a internal plugin error and the service could not be completed.";
   private static final String USER_MESSAGE_REQUEST_WITH_SYNTACTICAL_ERRORS =
@@ -34,33 +35,44 @@ public class OntoUMLServerAccessController {
   private static final String USER_MESSAGE_UNKNOWN_ERROR_RESPONSE =
       "Error receiving service response.";
 
-  private static String getServiceRequestBody(String project) {
-    return "{\"options\": null, \"project\": " + project + "}";
-  }
 
   private static String getServiceRequestBody(String project, String options) {
-    return "{\"options\": " + options + ", \"project\": " + project + "}";
+    return "{ " + options + ", \"origin\": " + project + " }";
   }
 
-  private static String getModularizationRequestUrl() {
+  private static String getAbstractionRequestUrl() {
     final ProjectConfigurations config = Configurations.getInstance().getProjectConfigurations();
-    return config.isCustomServerEnabled()
-        ? config.getServerURL() + MODULARIZATION_SERVICE_ENDPOINT
-        : ProjectConfigurations.DEFAULT_SERVER_URL + MODULARIZATION_SERVICE_ENDPOINT;
+    return config.isCustomExpoServerEnabled()
+            ? config.getExpoServerURL() + ABSTRACT_SERVICE_ENDPOINT
+            : ProjectConfigurations.DEFAULT_EXPO_SERVER_URL + ABSTRACT_SERVICE_ENDPOINT;
   }
 
-  private static String getVerificationRequestUrl() {
+  private static String getFoldRequestUrl() {
     final ProjectConfigurations config = Configurations.getInstance().getProjectConfigurations();
-    return config.isCustomServerEnabled()
-        ? config.getServerURL() + VERIFICATION_SERVICE_ENDPOINT
-        : ProjectConfigurations.DEFAULT_SERVER_URL + VERIFICATION_SERVICE_ENDPOINT;
+    return config.isCustomExpoServerEnabled()
+            ? config.getExpoServerURL() + FOLD_SERVICE_ENDPOINT
+            : ProjectConfigurations.DEFAULT_EXPO_SERVER_URL + FOLD_SERVICE_ENDPOINT;
   }
 
-  private static String getTransformationToGufoRequestUrl() {
+  private static String getExpandRequestUrl() {
     final ProjectConfigurations config = Configurations.getInstance().getProjectConfigurations();
-    return config.isCustomServerEnabled()
-        ? config.getServerURL() + TRANSFORM_GUFO_SERVICE_ENDPOINT
-        : ProjectConfigurations.DEFAULT_SERVER_URL + TRANSFORM_GUFO_SERVICE_ENDPOINT;
+    return config.isCustomExpoServerEnabled()
+            ? config.getExpoServerURL() + EXPAND_SERVICE_ENDPOINT
+            : ProjectConfigurations.DEFAULT_EXPO_SERVER_URL + EXPAND_SERVICE_ENDPOINT;
+  }
+
+  private static String getClusterRequestUrl() {
+    final ProjectConfigurations config = Configurations.getInstance().getProjectConfigurations();
+    return config.isCustomExpoServerEnabled()
+            ? config.getExpoServerURL() + CLUSTER_SERVICE_ENDPOINT
+            : ProjectConfigurations.DEFAULT_EXPO_SERVER_URL + CLUSTER_SERVICE_ENDPOINT;
+  }
+
+  private static String getFocusRequestUrl() {
+    final ProjectConfigurations config = Configurations.getInstance().getProjectConfigurations();
+    return config.isCustomExpoServerEnabled()
+            ? config.getExpoServerURL() + FOCUS_SERVICE_ENDPOINT
+            : ProjectConfigurations.DEFAULT_EXPO_SERVER_URL + FOCUS_SERVICE_ENDPOINT;
   }
 
   private static <T extends ServiceResult<?>> T parseResponse(
@@ -83,31 +95,35 @@ public class OntoUMLServerAccessController {
     return connection.getContentType().contains("application/json");
   }
 
-  public static ModularizationServiceResult requestProjectModularization(String project)
-      throws IOException {
-    final String body = getServiceRequestBody(project);
-    final String url = getModularizationRequestUrl();
-    final HttpURLConnection connection = request(url, body);
-
-    return parseResponse(connection, ModularizationServiceResult.class);
-  }
-
-  public static VerificationServiceResult requestModelVerification(String project)
-      throws IOException {
-    final String url = getVerificationRequestUrl();
-    final String body = getServiceRequestBody(project);
-    final HttpURLConnection connection = request(url, body);
-
-    return parseResponse(connection, VerificationServiceResult.class);
-  }
-
-  public static GufoTransformationServiceResult requestModelTransformationToGufo(
-      String project, String options) throws IOException {
-    final String url = getTransformationToGufoRequestUrl();
+  public static AbstractionServiceResult requestProjectAbstraction(String project, String options)
+          throws IOException {
     final String body = getServiceRequestBody(project, options);
+    final String url = getAbstractionRequestUrl();
     final HttpURLConnection connection = request(url, body);
 
-    return parseResponse(connection, GufoTransformationServiceResult.class);
+    return parseResponse(connection, AbstractionServiceResult.class);
+  }
+
+  public static ExpoServiceResult requestProjectExplanation(String project, String options, String action)
+          throws IOException {
+    final String body = getServiceRequestBody(project, options);
+    String url = "";
+    switch (action) {
+      case "foldClass":
+        url = getFoldRequestUrl();
+        break;
+      case "expandClass":
+        url = getExpandRequestUrl();
+        break;
+      case "clusterClass":
+        url = getClusterRequestUrl();
+        break;
+      case "focusClass":
+        url = getFocusRequestUrl();
+        break;
+    }
+    final HttpURLConnection connection = request(url, body);
+    return parseResponse(connection, ExpoServiceResult.class);
   }
 
   private static HttpURLConnection request(String url, String body) throws IOException {
@@ -140,33 +156,6 @@ public class OntoUMLServerAccessController {
     }
   }
 
-  //  public static GufoTransformationServiceResult requestProjectTransformationToGufo(
-  //      String project, String options) {
-  //    final String body = getServiceRequestBody(project, options);
-  //    final String url = getTransformationToGufoRequestUrl();
-  //
-  //    try {
-  //      final HttpURLConnection connection = performRequest(url, body);
-  //
-  //      switch (connection.getResponseCode()) {
-  //        case HttpURLConnection.HTTP_OK:
-  //          if (hasJsonContentType(connection)) {
-  //            return parseResponse(connection, GufoTransformationServiceResult.class);
-  //          }
-  //        case HttpURLConnection.HTTP_BAD_REQUEST:
-  //        case HttpURLConnection.HTTP_NOT_FOUND:
-  //        case HttpURLConnection.HTTP_INTERNAL_ERROR:
-  //        default:
-  //          System.err.println("Attention! Transformation request was not processed correctly");
-  //          System.err.println("Status Code: " + connection.getResponseCode());
-  //      }
-  //    } catch (IOException ioException) {
-  //      ioException.printStackTrace();
-  //    }
-  //
-  //    return null;
-  //  }
-
   private static HttpURLConnection performRequest(String urlString, String body)
       throws IOException {
     final URL url = new URL(urlString);
@@ -174,7 +163,7 @@ public class OntoUMLServerAccessController {
 
     request.setRequestMethod("POST");
     request.setRequestProperty("Content-Type", "application/json");
-    request.setReadTimeout(60000);
+    request.setReadTimeout(120000);
     request.setDoOutput(true);
 
     final OutputStream requestStream = request.getOutputStream();

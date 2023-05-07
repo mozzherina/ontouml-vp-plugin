@@ -16,13 +16,14 @@ public class ProjectConfigurations {
 
   public static final boolean DEFAULT_IS_PLUGIN_ENABLED = true;
   public static final boolean DEFAULT_IS_CUSTOM_SERVER_ENABLED = false;
+  public static final boolean DEFAULT_IS_CUSTOM_EXPO_SERVER_ENABLED = false;
   public static final boolean DEFAULT_IS_EXPORT_ENABLED = true;
   public static final boolean DEFAULT_IS_AUTOMATIC_COLORING_ENABLED = true;
   public static final boolean DEFAULT_IS_AUTOMATIC_MODELLING_ENABLED = true;
   public static final boolean DEFAULT_IGNORE_ASSOCIATION_INVERSION_WARNING = false;
   public static final String DEFAULT_SERVER_URL = "http://api.ontouml.org";
   //  public static final String DEFAULT_SERVER_URL = "http://api.ontouml.org:3000";
-  public static final String DEFAULT_EXPO_SERVER_URL = "http://localhost:8000";
+  public static final String DEFAULT_EXPO_SERVER_URL = "https://expose.eng.unibz.it";
   public static final String DEFAULT_EXPORT_PATH = System.getProperty("user.home");
   public static final String DEFAULT_EXPORT_FILENAME = "";
   public static final String DEFAULT_GUFO_EXPORT_PATH = System.getProperty("user.home");
@@ -154,6 +155,7 @@ public class ProjectConfigurations {
 
     this.isCustomServerEnabled = ProjectConfigurations.DEFAULT_IS_CUSTOM_SERVER_ENABLED;
     this.serverURL = ProjectConfigurations.DEFAULT_SERVER_URL;
+    this.isCustomExpoServerEnabled = ProjectConfigurations.DEFAULT_IS_CUSTOM_EXPO_SERVER_ENABLED;
     this.expoServerURL = ProjectConfigurations.DEFAULT_EXPO_SERVER_URL;
 
     this.isModelExportEnabled = ProjectConfigurations.DEFAULT_IS_EXPORT_ENABLED;
