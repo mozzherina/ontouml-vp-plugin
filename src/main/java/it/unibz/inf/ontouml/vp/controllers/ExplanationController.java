@@ -18,14 +18,18 @@ public class ExplanationController implements VPActionController {
 
   private String elementId;
   private String actionType;
+  private Boolean autoLayout = false;
 
   public void setElementId(String elementId) {
     this.elementId = elementId;
   }
 
-  public void setActionType(String actionId) {
-    String[] originalId = actionId.split(".");
-    this.actionType = originalId[originalId.length-1];
+  public void setActionType(String actionType) {
+    this.actionType = actionType;
+  }
+
+  public void setAutoLayout(Boolean autoLayout) {
+    this.autoLayout = autoLayout;
   }
 
   @Override
@@ -60,7 +64,7 @@ public class ExplanationController implements VPActionController {
       System.out.println("Processing Expo response...");
       Project expoProject = serviceResult.getResult();
       if (!context.isCancelled() && expoProject != null) {
-        IProjectLoader.load(expoProject, false, false);
+        IProjectLoader.load(expoProject, true, autoLayout);
         ViewManagerUtils.log(serviceResult.getMessage());
       }
       System.out.println("Expo service response processed!");

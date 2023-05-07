@@ -2,6 +2,7 @@ package it.unibz.inf.ontouml.vp.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.unibz.inf.ontouml.vp.model.*;
+import it.unibz.inf.ontouml.vp.model.ontouml.Project;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -75,8 +76,8 @@ public class ExpoServerAccessController {
             : ProjectConfigurations.DEFAULT_EXPO_SERVER_URL + FOCUS_SERVICE_ENDPOINT;
   }
 
-  private static <T extends ServiceResult<?>> T parseResponse(
-      HttpURLConnection connection, Class<T> _class) throws IOException {
+  private static ExpoServiceResult parseExpoResponse(
+          HttpURLConnection connection) throws IOException {
     if (connection.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
       return null;
     }
@@ -88,20 +89,21 @@ public class ExpoServerAccessController {
     final BufferedReader reader =
         new BufferedReader(new InputStreamReader(connection.getInputStream()));
     final String json = reader.lines().parallel().collect(Collectors.joining("\n"));
-    return new ObjectMapper().readValue(json, _class);
+
+    Project updatedProject = new ObjectMapper().readValue(json, Project.class);
+    return new ExpoServiceResult(updatedProject);
   }
 
   private static boolean hasJsonContentType(HttpURLConnection connection) {
     return connection.getContentType().contains("application/json");
   }
 
-  public static AbstractionServiceResult requestProjectAbstraction(String project, String options)
+  public static ExpoServiceResult requestProjectAbstraction(String project, String options)
           throws IOException {
     final String body = getServiceRequestBody(project, options);
     final String url = getAbstractionRequestUrl();
     final HttpURLConnection connection = request(url, body);
-
-    return parseResponse(connection, AbstractionServiceResult.class);
+    return parseExpoResponse(connection);
   }
 
   public static ExpoServiceResult requestProjectExplanation(String project, String options, String action)
@@ -123,7 +125,7 @@ public class ExpoServerAccessController {
         break;
     }
     final HttpURLConnection connection = request(url, body);
-    return parseResponse(connection, ExpoServiceResult.class);
+    return parseExpoResponse(connection);
   }
 
   private static HttpURLConnection request(String url, String body) throws IOException {

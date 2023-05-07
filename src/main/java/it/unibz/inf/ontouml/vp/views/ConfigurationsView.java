@@ -250,7 +250,7 @@ public class ConfigurationsView extends JPanel {
     _chckbxEnableCustomServer.setSelected(configurations.isCustomServerEnabled());
     _txtServerAddress.setText(configurations.getServerURL());
 
-    _chckbxEnableCustomServer.setSelected(configurations.isCustomExpoServerEnabled());
+    _chckbxEnableExpoCustomServer.setSelected(configurations.isCustomExpoServerEnabled());
     _txtExpoServerAddress.setText(configurations.getExpoServerURL());
 
     _chckbxEnableAutoColoring.setSelected(configurations.isAutomaticColoringEnabled());

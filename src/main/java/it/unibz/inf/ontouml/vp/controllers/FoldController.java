@@ -6,7 +6,7 @@ import com.vp.plugin.action.VPContextActionController;
 import com.vp.plugin.model.IModelElement;
 import java.awt.event.ActionEvent;
 
-public class ExpoController implements VPContextActionController {
+public class FoldController implements VPContextActionController {
 
     @Override
     public void performAction(VPAction action, VPContext context, ActionEvent event) {
@@ -15,7 +15,7 @@ public class ExpoController implements VPContextActionController {
 
         ExplanationController expo = new ExplanationController();
         expo.setElementId(elementId);
-        expo.setActionType(action.getActionId())
+        expo.setActionType("foldClass");
         expo.performAction(action);
     }
 

@@ -3,7 +3,8 @@ package it.unibz.inf.ontouml.vp.controllers;
 import com.vp.plugin.ApplicationManager;
 import com.vp.plugin.action.VPAction;
 import com.vp.plugin.action.VPActionController;
-import it.unibz.inf.ontouml.vp.model.AbstractionServiceResult;
+import com.vp.plugin.diagram.IDiagramUIModel;
+import it.unibz.inf.ontouml.vp.model.ExpoServiceResult;
 import it.unibz.inf.ontouml.vp.model.AbstractionOptions;
 import it.unibz.inf.ontouml.vp.model.ontouml.Project;
 import it.unibz.inf.ontouml.vp.model.ontouml2vp.IProjectLoader;
@@ -41,7 +42,7 @@ public class AbstractionController implements VPActionController {
       System.out.println("Starting abstraction service...");
       System.out.println("Serializing project...");
       final String serializedProject = Uml2OntoumlTransformer.transformAndSerialize();
-      // final String activeDiagramId = ApplicationManager.instance().getDiagramManager().getActiveDiagram().getId();
+      final String activeDiagramId = ApplicationManager.instance().getDiagramManager().getActiveDiagram().getId();
       final String options = new AbstractionOptions(
               // activeDiagramId,
               // this.elementId,
@@ -51,7 +52,7 @@ public class AbstractionController implements VPActionController {
       System.out.println("Project serialized!");
 
       System.out.println("Requesting diagrams from the abstraction service...");
-      final AbstractionServiceResult serviceResult =
+      final ExpoServiceResult serviceResult =
           ExpoServerAccessController.requestProjectAbstraction(serializedProject, options);
       System.out.println("Request answered by Expose!");
 
@@ -59,10 +60,12 @@ public class AbstractionController implements VPActionController {
 
       // Load project
       System.out.println("Processing abstraction service response...");
-      Project modularizedProject = serviceResult.getResult();
-      if (!context.isCancelled() && modularizedProject != null) {
-        IProjectLoader.load(modularizedProject, false, false);
+      Project updatedProject = serviceResult.getResult();
+      if (!context.isCancelled() && updatedProject != null) {
+        IProjectLoader.load(updatedProject, true, false);
         ViewManagerUtils.log(serviceResult.getMessage());
+        // IDiagramUIModel diagram = ApplicationManager.instance().getProjectManager().getProject().getDiagramById(activeDiagramId);
+        // ApplicationManager.instance().getDiagramManager().openDiagram(diagram);
       }
       System.out.println("Abstraction service response processed!");
       System.out.println("Abstraction service concluded.");
