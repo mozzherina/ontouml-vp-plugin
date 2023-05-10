@@ -76,18 +76,31 @@ Users must select the elements that shall be exported to gUFO either selecting f
 
 ![A screenshot showing the "transformation to gUFO" window](./docs/feature-gufo.png)
 
-### Automatic Diagram Generation
+#### Automatic Diagram Generation
 
 Diagram generation allows users to include into their projects automatically generated diagrams that advantage from OntoUML features to create meaningful views of their ontologies.
 
 ![A gif demonstrating the diagram generation feature.](./docs/feature-diagram-generation.gif)
 
-### Automatic Abstractions
+#### Automatic Abstractions
 
+Automatic abstractions are generated according to the algorithm specified in this 
+[paper](https://doi.org/10.1007/978-3-031-05760-1_22)
 
-### Model Transformation Operations
+A user can select a type of the abstraction in the menu:
 
+![A screenshot with abstraction menu](.expo/plugin_menu.png)
 
+Please, remember that abstractions can be done one over another, 
+but this would not always lead to generating new models.
+
+#### Model Transformation Operations
+
+A user can select a transformation operation from the context menu:
+
+<img src=".expo/plugin_context_menu.png" width="250" height="250">
+
+Those operations are supported by the [ExpO REST API](http://expose.eng.unibz.it/health).
 
 #### Continuous Updates
 
