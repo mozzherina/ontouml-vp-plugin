@@ -1,4 +1,4 @@
-# OntoUML Plugin for Visual Paradigm
+# OntoUML & ExpO Plugin for Visual Paradigm
 
 This project contains a [Visual Paradigm](https://www.visual-paradigm.com/) plugin that enables the development of OntoUML models.
 
@@ -10,6 +10,7 @@ If you are interested to know more, feel free to open an issue to provide feedba
 * [Tiago Prince Sales](https://github.com/tgoprince)
 * [Lucas Bassetti](https://github.com/LucasBassetti)
 * [Victor Viola](https://github.com/victorviola)
+* [Elena Romanenko](https://github.com/mozzherina)
 
 ## Contents
 
@@ -23,9 +24,9 @@ ___
 
 ## Overview
 
-The **OntoUML Plugin for Visual Paradigm** adds to any version of Visual Paradigm features designed for OntoUML modelers. These features range from enabling OntoUML stereotypes in class diagrams to model verification and transformation.
+The **OntoUML Plugin for Visual Paradigm** adds to any version of Visual Paradigm features designed for OntoUML modelers. These features range from enabling OntoUML stereotypes in class diagrams, model verification and transformation to model abstractions.
 
-WARNING: some more advanced features are based on web services that process your model remotely. The software processing these models is also [openly available](https://github.com/OntoUML/ontouml-server) and if you prefer to have your models processed in your own server, you are able to set it up and change the server URL in the plugin's settings.
+WARNING: some more advanced features are based on web services that process your model remotely. The software processing these models is also openly available: [ontouml-server](https://github.com/OntoUML/ontouml-server) and [expose](https://github.com/mozzherina/expose). If you prefer to have your models processed in your own servers, you are able to set it up and change the servers' URLs in the plugin's settings.
 
 ### Features
 
@@ -80,6 +81,12 @@ Users must select the elements that shall be exported to gUFO either selecting f
 Diagram generation allows users to include into their projects automatically generated diagrams that advantage from OntoUML features to create meaningful views of their ontologies.
 
 ![A gif demonstrating the diagram generation feature.](./docs/feature-diagram-generation.gif)
+
+### Automatic Abstractions
+
+
+### Model Transformation Operations
+
 
 
 #### Continuous Updates
