@@ -2,7 +2,7 @@
 
 This project contains a [Visual Paradigm](https://www.visual-paradigm.com/) plugin that enables the development of OntoUML models.
 
-This project is defined under the umbrella of the [OntoUML Server](https://github.com/OntoUML/ontouml-server) project and is currently a proof of concept.
+This project is defined under the umbrella of the [OntoUML Server](https://github.com/OntoUML/ontouml-server) and [ExpO](https://w3id.org/ExpO/github) projects and is currently a proof of concept.
 
 If you are interested to know more, feel free to open an issue to provide feedback on the project or reach our team members for more specific cases:
 
@@ -24,9 +24,9 @@ ___
 
 ## Overview
 
-The **OntoUML Plugin for Visual Paradigm** adds to any version of Visual Paradigm features designed for OntoUML modelers. These features range from enabling OntoUML stereotypes in class diagrams, model verification and transformation to model abstractions.
+The **OntoUML & ExpO Plugin for Visual Paradigm** adds to Visual Paradigm features designed for OntoUML modelers. These features range from enabling OntoUML stereotypes in class diagrams, model verification and transformation to model abstractions.
 
-WARNING: some more advanced features are based on web services that process your model remotely. The software processing these models is also openly available: [ontouml-server](https://github.com/OntoUML/ontouml-server) and [expose](https://github.com/mozzherina/expose). If you prefer to have your models processed in your own servers, you are able to set it up and change the servers' URLs in the plugin's settings.
+WARNING: some more advanced features are based on web services that process your model remotely. The software processing these models is also openly available: [ontouml-server](https://github.com/OntoUML/ontouml-server) and [expose](https://w3id.org/ExpO/github). If you prefer to have your models processed in your own servers, you are able to set it up and change the servers' URLs in the plugin's settings.
 
 ### Features
 
@@ -100,7 +100,7 @@ A user can select a transformation operation from the context menu:
 
 <img src=".expo/plugin_context_menu.png" width="250" height="250">
 
-Those operations are supported by the [ExpO REST API](http://expose.eng.unibz.it/health).
+Those operations are supported by the [ExpO API Server](https://w3id.org/ExpO/expose/health).
 
 #### Continuous Updates
 
