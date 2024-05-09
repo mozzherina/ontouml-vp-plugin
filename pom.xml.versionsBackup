@@ -5,10 +5,10 @@
 
     <groupId>it.unibz.inf.ontouml</groupId>
     <artifactId>ontouml-vp-plugin</artifactId>
-    <version>0.1.0-expo-SNAPSHOT</version>
+    <version>0.1.0-expo</version>
     <scm>
-        <connection>scm:git:https://github.com/mozzherina/ontouml-vp-plugin/tree/features/abstraction</connection>
-        <developerConnection>scm:git:https://github.com/mozzherina/ontouml-vp-plugin/tree/features/abstraction</developerConnection>
+        <connection>scm:svn:file://localhost/Users/elenaromanenko/Documents/Projects/Abstraction/implementation/ontouml-vp-plugin</connection>
+        <developerConnection>scm:svn:file://localhost/Users/elenaromanenko/Documents/Projects/Abstraction/implementation/ontouml-vp-plugin</developerConnection>
     </scm>
 
     <name>OntoUML and ExpO Plugin for Visual Paradigm</name>
