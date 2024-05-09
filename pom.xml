@@ -5,9 +5,9 @@
 
     <groupId>it.unibz.inf.ontouml</groupId>
     <artifactId>ontouml-vp-plugin</artifactId>
-    <version>0.5.3</version>
+    <version>v0.1.0-expo</version>
 
-    <name>OntoUML 2 Plugin for Visual Paradigm</name>
+    <name>OntoUML and ExpO Plugin for Visual Paradigm</name>
 
     <profiles>
         <profile>
