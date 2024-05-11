@@ -1,6 +1,6 @@
 <plugin
   id="it.unibz.inf.ontouml.vp"
-  description="OntoUML Plugin Visual Paradigm v0.5.3"
+  description="OntoUML Plugin Visual Paradigm v0.5.4"
   provider="University of Bolzano"
   class="it.unibz.inf.ontouml.vp.OntoUMLPlugin">
 
@@ -49,6 +49,42 @@
         menuPath="it.unibz.inf.ontouml.vp.actionset1.toolbar1/it.unibz.inf.ontouml.vp.actionset1.menu1/#">
         <actionController
           class="it.unibz.inf.ontouml.vp.controllers.ModularizationController"/>
+      </action>
+
+      <action
+        id="it.unibz.inf.ontouml.vp.actions.AbstractionParthoodAction"
+        actionType="generalAction"
+        description="Abstract parthood relations in the diagram."
+        style="normal"
+        tooltip="Abstract parthood relations in the diagram."
+        icon="icons/toolbar/magnifying-glass-with-minus-sign-orange.png"
+        label="Abstract Parthood"
+        menuPath="it.unibz.inf.ontouml.vp.actionset1.toolbar1/it.unibz.inf.ontouml.vp.actionset1.menu1/#">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractParthoodController"/>
+      </action>
+
+      <action
+        id="it.unibz.inf.ontouml.vp.actions.AbstractionHierarchyAction"
+        actionType="generalAction"
+        description="Abstract hierarchies in the active diagram."
+        style="normal"
+        tooltip="Abstract hierarchies in the active diagram."
+        icon="icons/toolbar/magnifying-glass-with-minus-sign-orange.png"
+        label="Abstract Hierarchy"
+        menuPath="it.unibz.inf.ontouml.vp.actionset1.toolbar1/it.unibz.inf.ontouml.vp.actionset1.menu1/#">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractHierarchyController"/>
+      </action>
+
+      <action
+        id="it.unibz.inf.ontouml.vp.actions.AbstractionAspectsAction"
+        actionType="generalAction"
+        description="Abstract aspects in the diagram."
+        style="normal"
+        tooltip="Abstract aspects in the diagram."
+        icon="icons/toolbar/magnifying-glass-with-minus-sign-orange.png"
+        label="Abstract Aspects"
+        menuPath="it.unibz.inf.ontouml.vp.actionset1.toolbar1/it.unibz.inf.ontouml.vp.actionset1.menu1/#">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.AbstractAspectsController"/>
       </action>
 
       <action
@@ -176,6 +212,39 @@
       -->
 
     </actionSet>
+
+    <contextSensitiveActionSet id="it.unibz.inf.ontouml.vp.ExpoAction">
+      <contextTypes all="false"/>
+      <include type="Class"/>
+
+      <separator id="it.unibz.inf.ontouml.vp.ExpoAction.separator" menuPath="#"/>
+
+      <action id="it.unibz.inf.ontouml.vp.ExpoAction.foldClass"
+              label="Fold class" style="normal" menuPath="#"
+              icon="icons/logo/ontouml-simple-logo-small.png">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.FoldController"/>
+      </action>
+
+      <action id="it.unibz.inf.ontouml.vp.ExpoAction.expandClass"
+              label="Expand class" style="normal" menuPath="#"
+              icon="icons/logo/ontouml-simple-logo-small.png">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.ExpandController"/>
+      </action>
+
+      <action id="it.unibz.inf.ontouml.vp.ExpoAction.clusterClass"
+              label="Cluster" style="normal" menuPath="#"
+              icon="icons/logo/ontouml-simple-logo-small.png">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.ClusterController"/>
+      </action>
+
+      <action id="it.unibz.inf.ontouml.vp.ExpoAction.focusClass"
+              label="Focus on class" style="normal" menuPath="#"
+              icon="icons/logo/ontouml-simple-logo-small.png">
+        <actionController class="it.unibz.inf.ontouml.vp.controllers.FocusController"/>
+      </action>
+
+
+    </contextSensitiveActionSet>
 
     <contextSensitiveActionSet id="it.unibz.inf.ontouml.vp.AssociationActions">
       <contextTypes all="false"/>

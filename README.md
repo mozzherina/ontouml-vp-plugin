@@ -1,8 +1,8 @@
-# OntoUML Plugin for Visual Paradigm
+# OntoUML & ExpO Plugin for Visual Paradigm
 
 This project contains a [Visual Paradigm](https://www.visual-paradigm.com/) plugin that enables the development of OntoUML models.
 
-This project is defined under the umbrella of the [OntoUML Server](https://github.com/OntoUML/ontouml-server) project and is currently a proof of concept.
+This project is defined under the umbrella of the [OntoUML Server](https://github.com/OntoUML/ontouml-server) and [ExpO](https://w3id.org/ExpO/github) projects and is currently a proof of concept.
 
 If you are interested to know more, feel free to open an issue to provide feedback on the project or reach our team members for more specific cases:
 
@@ -10,6 +10,7 @@ If you are interested to know more, feel free to open an issue to provide feedba
 * [Tiago Prince Sales](https://github.com/tgoprince)
 * [Lucas Bassetti](https://github.com/LucasBassetti)
 * [Victor Viola](https://github.com/victorviola)
+* [Elena Romanenko](https://github.com/mozzherina)
 
 ## Contents
 
@@ -23,9 +24,9 @@ ___
 
 ## Overview
 
-The **OntoUML Plugin for Visual Paradigm** adds to any version of Visual Paradigm features designed for OntoUML modelers. These features range from enabling OntoUML stereotypes in class diagrams to model verification and transformation.
+The **OntoUML & ExpO Plugin for Visual Paradigm** adds to Visual Paradigm features designed for OntoUML modelers. These features range from enabling OntoUML stereotypes in class diagrams, model verification and transformation to model abstractions.
 
-WARNING: some more advanced features are based on web services that process your model remotely. The software processing these models is also [openly available](https://github.com/OntoUML/ontouml-server) and if you prefer to have your models processed in your own server, you are able to set it up and change the server URL in the plugin's settings.
+WARNING: some more advanced features are based on web services that process your model remotely. The software processing these models is also openly available: [ontouml-server](https://github.com/OntoUML/ontouml-server) and [expose](https://w3id.org/ExpO/github). If you prefer to have your models processed in your own servers, you are able to set it up and change the servers' URLs in the plugin's settings.
 
 ### Features
 
@@ -75,12 +76,31 @@ Users must select the elements that shall be exported to gUFO either selecting f
 
 ![A screenshot showing the "transformation to gUFO" window](./docs/feature-gufo.png)
 
-### Automatic Diagram Generation
+#### Automatic Diagram Generation
 
 Diagram generation allows users to include into their projects automatically generated diagrams that advantage from OntoUML features to create meaningful views of their ontologies.
 
 ![A gif demonstrating the diagram generation feature.](./docs/feature-diagram-generation.gif)
 
+#### Automatic Abstractions
+
+Automatic abstractions are generated according to the algorithm specified in this 
+[paper](https://doi.org/10.1007/978-3-031-05760-1_22)
+
+A user can select a type of the abstraction in the menu:
+
+![A screenshot with abstraction menu](.expo/plugin_menu.png)
+
+Please, remember that abstractions can be done one over another, 
+but this would not always lead to generating new models.
+
+#### Model Transformation Operations
+
+A user can select a transformation operation from the context menu:
+
+<img src=".expo/plugin_context_menu.png" width="250" height="250">
+
+Those operations are supported by the [ExpO API Server](https://w3id.org/ExpO/expose/health).
 
 #### Continuous Updates
 

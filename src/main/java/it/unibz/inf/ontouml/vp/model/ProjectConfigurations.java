@@ -9,18 +9,21 @@ import java.util.HashSet;
  *
  * @author Claudenir Fonseca
  * @author Victor Viola
+ * @author Elena Romanenko
  */
 /** @author Victor Viola */
 public class ProjectConfigurations {
 
   public static final boolean DEFAULT_IS_PLUGIN_ENABLED = true;
   public static final boolean DEFAULT_IS_CUSTOM_SERVER_ENABLED = false;
+  public static final boolean DEFAULT_IS_CUSTOM_EXPO_SERVER_ENABLED = false;
   public static final boolean DEFAULT_IS_EXPORT_ENABLED = true;
   public static final boolean DEFAULT_IS_AUTOMATIC_COLORING_ENABLED = true;
   public static final boolean DEFAULT_IS_AUTOMATIC_MODELLING_ENABLED = true;
   public static final boolean DEFAULT_IGNORE_ASSOCIATION_INVERSION_WARNING = false;
   public static final String DEFAULT_SERVER_URL = "http://api.ontouml.org";
   //  public static final String DEFAULT_SERVER_URL = "http://api.ontouml.org:3000";
+  public static final String DEFAULT_EXPO_SERVER_URL = "https://expose.eng.unibz.it";
   public static final String DEFAULT_EXPORT_PATH = System.getProperty("user.home");
   public static final String DEFAULT_EXPORT_FILENAME = "";
   public static final String DEFAULT_GUFO_EXPORT_PATH = System.getProperty("user.home");
@@ -38,9 +41,17 @@ public class ProjectConfigurations {
   @Expose()
   private String serverURL;
 
+  @SerializedName("expoServerURL")
+  @Expose()
+  private String expoServerURL;
+
   @SerializedName("isCustomServerEnabled")
   @Expose()
   private boolean isCustomServerEnabled;
+
+  @SerializedName("isCustomExpoServerEnabled")
+  @Expose()
+  private boolean isCustomExpoServerEnabled;
 
   @SerializedName("exportFolderPath")
   @Expose()
@@ -144,6 +155,8 @@ public class ProjectConfigurations {
 
     this.isCustomServerEnabled = ProjectConfigurations.DEFAULT_IS_CUSTOM_SERVER_ENABLED;
     this.serverURL = ProjectConfigurations.DEFAULT_SERVER_URL;
+    this.isCustomExpoServerEnabled = ProjectConfigurations.DEFAULT_IS_CUSTOM_EXPO_SERVER_ENABLED;
+    this.expoServerURL = ProjectConfigurations.DEFAULT_EXPO_SERVER_URL;
 
     this.isModelExportEnabled = ProjectConfigurations.DEFAULT_IS_EXPORT_ENABLED;
     this.exportFolderPath = ProjectConfigurations.DEFAULT_EXPORT_PATH;
@@ -203,6 +216,24 @@ public class ProjectConfigurations {
   }
 
   /**
+   * Returns ExpO Server URL.
+   *
+   * @return expoServerURL
+   */
+  public String getExpoServerURL() {
+    return expoServerURL;
+  }
+
+  /**
+   * Sets ExpO Server URL.
+   *
+   * @param expoServerURL
+   */
+  public void setExpoServerURL(String expoServerURL) {
+    this.expoServerURL = expoServerURL;
+  }
+
+  /**
    * Checks if a custom server URL must be used.
    *
    * @return <code>true</code> if plugin is enabled <b>and</b> a custom server is enabled.
@@ -219,6 +250,25 @@ public class ProjectConfigurations {
    */
   public void setCustomServerEnabled(boolean isCustomServerEnabled) {
     this.isCustomServerEnabled = isCustomServerEnabled;
+  }
+
+  /**
+   * Checks if an ExpO custom server URL must be used.
+   *
+   * @return <code>true</code> if plugin is enabled <b>and</b> a custom server is enabled.
+   * @see <code>{@link #isOntoUMLPluginEnabled()}</code>
+   */
+  public boolean isCustomExpoServerEnabled() {
+    return isOntoUMLPluginEnabled() && isCustomExpoServerEnabled;
+  }
+
+  /**
+   * Sets if a custom ExpO server URL must be used.
+   *
+   * @param isCustomExpoServerEnabled
+   */
+  public void setCustomExpoServerEnabled(boolean isCustomExpoServerEnabled) {
+    this.isCustomExpoServerEnabled = isCustomExpoServerEnabled;
   }
 
   /**

@@ -18,6 +18,11 @@ public abstract class ServiceResult<T> {
     this.issues = issues;
   }
 
+  public ServiceResult(T result) {
+    this.result = result;
+    setIssues(new ArrayList<>());
+  }
+
   public T getResult() {
     return result;
   }
